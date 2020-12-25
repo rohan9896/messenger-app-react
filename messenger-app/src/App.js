@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   FormControl,
@@ -7,13 +7,23 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import "./App.css";
+import Message from "./Message";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { username: "Rohan", text: "Heyy bro!" },
+    { username: "Not Rohan", text: "Hello brooo!" },
+  ]);
+  const [userName, setUserName] = useState("");
 
-  console.log(input);
-  console.log(messages);
+  useEffect(() => {
+    setUserName(prompt("Enter your name: "));
+  }, []);
+
+  // console.log(input);
+  // console.log(messages);
+  // console.log(userName);
 
   const inputHandler = (event) => {
     let userInput = event.target.value;
@@ -25,14 +35,15 @@ function App() {
     event.preventDefault(); //to stop browser from automatically refeshing after clicking that happens inside form
 
     //logic for sending the message
-    setMessages([...messages, input]);
+    setMessages([...messages, { username: userName, text: input }]);
 
     setInput("");
   };
 
   return (
     <div className="App">
-      <h1>Hello!!</h1>
+      <h1>_____ Messenger</h1>
+      <h1>Hello {userName}!!</h1>
 
       <form>
         <FormControl>
@@ -52,8 +63,8 @@ function App() {
       </form>
 
       {/* messages */}
-      {messages.map((message) => (
-        <p>{message}</p>
+      {messages.map((messageObject) => (
+        <Message username={messageObject.username} text={messageObject.text} />
       ))}
     </div>
   );
