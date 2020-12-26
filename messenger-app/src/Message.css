@@ -3,3 +3,17 @@
     margin: 2rem;
     padding: 0.5rem;
 }
+
+.message_user {
+    margin-left: auto;
+    color: white;
+    text-align: left !important;
+}
+
+.message-user-card {
+    background: linear-gradient(to right, #fc5c7d, #6a82fb) !important;
+}
+
+.message-guest-card {
+    background-color: rgb(219, 210, 210) !important;
+}

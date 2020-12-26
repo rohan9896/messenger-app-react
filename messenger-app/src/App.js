@@ -42,14 +42,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>_____ Messenger</h1>
+      <h1>_________________ Messenger</h1>
       <h1>Hello {userName}!!</h1>
 
       <form>
         <FormControl>
           <InputLabel>Enter your msg here..👀</InputLabel>
           <Input value={input} onChange={inputHandler} />
-          <FormHelperText>😈😈😈</FormHelperText>
+          <FormHelperText>Messages are end-to-end encrypted👻</FormHelperText>
           <Button
             disabled={!input}
             variant="contained"
@@ -64,7 +64,7 @@ function App() {
 
       {/* messages */}
       {messages.map((messageObject) => (
-        <Message username={messageObject.username} text={messageObject.text} />
+        <Message username={userName} message={messageObject} />
       ))}
     </div>
   );
