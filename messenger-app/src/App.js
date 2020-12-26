@@ -9,6 +9,9 @@ import {
 import "./App.css";
 import Message from "./Message";
 import db from "./firebase";
+import firebase from "firebase";
+import FlipMove from "react-flip-move";
+import icon from './img/messenger.svg'
 
 function App() {
   const [input, setInput] = useState("");
@@ -16,9 +19,11 @@ function App() {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    db.collection('messages').onSnapshot(snapshot => {
-      setMessages(snapshot.docs.map(doc => doc.data()))
-    })
+    db.collection("messages")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setMessages(snapshot.docs.map((doc) => ({ id: doc.id, message: doc.data()})));
+      });
   }, []);
 
   useEffect(() => {
@@ -38,18 +43,22 @@ function App() {
   const sendMessage = (event) => {
     event.preventDefault(); //to stop browser from automatically refeshing after clicking that happens inside form
 
-    //logic for sending the message
-    setMessages([...messages, { username: userName, text: input }]);
+    db.collection("messages").add({
+      message: input,
+      username: userName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
 
     setInput("");
   };
 
   return (
     <div className="App">
+      <img style={{height: '10rem', width: '10rem', margin: '1rem'}} src={icon} alt="logo" />
       <h1>मौनावलंबी गप दूत 🙏</h1>
       <h1>Hello {userName}!!</h1>
 
-      <form>
+      <form className="app__form">
         <FormControl>
           <InputLabel>Enter your msg here..👀</InputLabel>
           <Input value={input} onChange={inputHandler} />
@@ -67,9 +76,11 @@ function App() {
       </form>
 
       {/* messages */}
-      {messages.map((messageObject) => (
-        <Message username={userName} message={messageObject} />
-      ))}
+      <FlipMove>
+        {messages.map(({id, message}) => (
+          <Message key={id} username={userName} message={message} />
+        ))}
+      </FlipMove>
     </div>
   );
 }
