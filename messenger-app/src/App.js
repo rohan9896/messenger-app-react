@@ -8,14 +8,18 @@ import {
 } from "@material-ui/core";
 import "./App.css";
 import Message from "./Message";
+import db from "./firebase";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
-    { username: "Rohan", text: "Heyy bro!" },
-    { username: "Not Rohan", text: "Hello brooo!" },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    db.collection('messages').onSnapshot(snapshot => {
+      setMessages(snapshot.docs.map(doc => doc.data()))
+    })
+  }, []);
 
   useEffect(() => {
     setUserName(prompt("Enter your name: "));
@@ -42,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>_________________ Messenger</h1>
+      <h1>मौनावलंबी गप दूत 🙏</h1>
       <h1>Hello {userName}!!</h1>
 
       <form>

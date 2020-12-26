@@ -10,10 +10,10 @@
     text-align: left !important;
 }
 
-.message-user-card {
+.message__usercard{
     background: linear-gradient(to right, #fc5c7d, #6a82fb) !important;
 }
 
-.message-guest-card {
+.message__guestcard {
     background-color: rgb(219, 210, 210) !important;
 }
