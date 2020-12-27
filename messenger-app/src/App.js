@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import {
   Button,
   FormControl,
-  InputLabel,
   Input,
-  FormHelperText,
 } from "@material-ui/core";
 import "./App.css";
 import Message from "./Message";
 import db from "./firebase";
 import firebase from "firebase";
 import FlipMove from "react-flip-move";
-import icon from './img/messenger.svg'
+import headerLogo from './img/messenger.svg';
+// import sendIcon from './img/paper-plane.svg'
 
 function App() {
   const [input, setInput] = useState("");
@@ -54,16 +53,15 @@ function App() {
 
   return (
     <div className="App">
-      <img style={{height: '10rem', width: '10rem', margin: '1rem'}} src={icon} alt="logo" />
+      <img style={{height: '10rem', width: '10rem', margin: '1rem'}} src={headerLogo} alt="logo" />
       <h1>मौनावलंबी गप दूत 🙏</h1>
       <h1>Hello {userName}!!</h1>
 
       <form className="app__form">
-        <FormControl>
-          <InputLabel>Enter your msg here..👀</InputLabel>
-          <Input value={input} onChange={inputHandler} />
-          <FormHelperText>Messages are end-to-end encrypted👻</FormHelperText>
+        <FormControl className="app__formControl">
+          <Input className="app__input" placeholder="Enter your msg here..👀" value={input} onChange={inputHandler} />
           <Button
+            className="app__iconBtn"
             disabled={!input}
             variant="contained"
             color="primary"
@@ -72,6 +70,7 @@ function App() {
           >
             Send
           </Button>
+          {/* <img src={sendIcon} alt="send" className="app__iconBtn" onClick={sendMessage} type="submit"></img> */}
         </FormControl>
       </form>
 
