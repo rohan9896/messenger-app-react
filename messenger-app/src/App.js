@@ -54,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <img style={{height: '10rem', width: '10rem', margin: '1rem'}} src={headerLogo} alt="logo" />
-      <h1>मौनावलंबी गप दूत 🙏</h1>
+      <h1>Messenger 🙏</h1>
       <h1>Hello {userName}!!</h1>
 
       <form className="app__form">
